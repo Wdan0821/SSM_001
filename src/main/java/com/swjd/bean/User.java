@@ -7,7 +7,6 @@ public class User {
     private String password;
     private String flag;
 
-
     public User(String uname, String realname, String password, String flag) {
         this.uname = uname;
         this.realname = realname;
