@@ -26,5 +26,4 @@ public class CustomerController {
         model.addAttribute("list",list);
         return "main";
     }
-
 }
