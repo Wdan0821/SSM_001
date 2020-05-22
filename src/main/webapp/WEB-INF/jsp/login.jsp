@@ -42,6 +42,7 @@
     用户名:<form:input path="uname" id="uname"/><br>
     密码:<form:password path="password" id="pwd"/><br>
     <input type="button" id="btn" value="提交">
+
 </form:form>
 </body>
 </html>
