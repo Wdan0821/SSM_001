@@ -7,15 +7,44 @@ public class Customer {
     //客户负责人的真实姓名
     private String customerUserName;
     private int customerCreateId;
-    private String customerSource;
+    private String customerSourse;
     //客户信息来源
-    private String customerSourceDict;
+    private String customerSourseDict;
     private String customerIndustory;
     //客户行业(中文)
     private String customerIndustoryDict;
     private String customerPhone;
     private String customerAddress;
     private String customerDate;
+
+    //用于批量删除
+    private String[] selectCustomerId;
+
+    public String[] getSelectCustomerId() {
+        return selectCustomerId;
+    }
+
+    public void setSelectCustomerId(String[] selectCustomerId) {
+        this.selectCustomerId = selectCustomerId;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId=" + customerId +
+                ", customerName='" + customerName + '\'' +
+                ", customerUserId=" + customerUserId +
+                ", customerUserName='" + customerUserName + '\'' +
+                ", customerCreateId=" + customerCreateId +
+                ", customerSourse='" + customerSourse + '\'' +
+                ", customerSourseDict='" + customerSourseDict + '\'' +
+                ", customerIndustory='" + customerIndustory + '\'' +
+                ", customerIndustoryDict='" + customerIndustoryDict + '\'' +
+                ", customerPhone='" + customerPhone + '\'' +
+                ", customerAddress='" + customerAddress + '\'' +
+                ", customerDate='" + customerDate + '\'' +
+                '}';
+    }
 
     public int getCustomerId() {
         return customerId;
@@ -57,20 +86,20 @@ public class Customer {
         this.customerCreateId = customerCreateId;
     }
 
-    public String getCustomerSource() {
-        return customerSource;
+    public String getCustomerSourse() {
+        return customerSourse;
     }
 
-    public void setCustomerSource(String customerSource) {
-        this.customerSource = customerSource;
+    public void setCustomerSourse(String customerSourse) {
+        this.customerSourse = customerSourse;
     }
 
-    public String getCustomerSourceDict() {
-        return customerSourceDict;
+    public String getCustomerSourseDict() {
+        return customerSourseDict;
     }
 
-    public void setCustomerSourceDict(String customerSourceDict) {
-        this.customerSourceDict = customerSourceDict;
+    public void setCustomerSourseDict(String customerSourseDict) {
+        this.customerSourseDict = customerSourseDict;
     }
 
     public String getCustomerIndustory() {
@@ -105,7 +134,6 @@ public class Customer {
         this.customerAddress = customerAddress;
     }
 
-
     public String getCustomerDate() {
         return customerDate;
     }
@@ -114,22 +142,18 @@ public class Customer {
         this.customerDate = customerDate;
     }
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "customerId=" + customerId +
-                ", customerName='" + customerName + '\'' +
-                ", customerUserId=" + customerUserId +
-                ", customerUserName='" + customerUserName + '\'' +
-                ", customerCreateId=" + customerCreateId +
-                ", customerSource='" + customerSource + '\'' +
-                ", customerSourceDict='" + customerSourceDict + '\'' +
-                ", customerIndustory='" + customerIndustory + '\'' +
-                ", customerIndustoryDict='" + customerIndustoryDict + '\'' +
-                ", customerPhone='" + customerPhone + '\'' +
-                ", customerAddress='" + customerAddress + '\'' +
-                ", customerDate='" + customerDate + '\'' +
-                '}';
+    public Customer(String customerName, int customerUserId, String customerUserName, int customerCreateId, String customerSourse, String customerSourseDict, String customerIndustory, String customerIndustoryDict, String customerPhone, String customerAddress, String customerDate) {
+        this.customerName = customerName;
+        this.customerUserId = customerUserId;
+        this.customerUserName = customerUserName;
+        this.customerCreateId = customerCreateId;
+        this.customerSourse = customerSourse;
+        this.customerSourseDict = customerSourseDict;
+        this.customerIndustory = customerIndustory;
+        this.customerIndustoryDict = customerIndustoryDict;
+        this.customerPhone = customerPhone;
+        this.customerAddress = customerAddress;
+        this.customerDate = customerDate;
     }
 
     public Customer() {

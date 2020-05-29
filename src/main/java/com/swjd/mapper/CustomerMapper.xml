@@ -1,23 +1,103 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.swjd.mapper.CustomerMapper">
+    <update id="updateOne">
+        update customer set customerName=#{customerName} where customerId=#{customerId}
+    </update>
 
-<select id="getAll" resultType="customer">
-SELECT
-	c.customerId,
-	c.customerName,
-	c.customerUserId,
-	(SELECT u.realname from user u where u.uid=c.customerUserId) as customerUserName,
-	c.customerCreateId,
-	c.customerSourse,
-	(SELECT d.dictItemName FROM dict d WHERE d.dictType = '002' AND d.dictItemCode = c.customerSourse ) AS customerSourseDict,
-	c.customerIndustry,
-	(SELECT d.dictItemName FROM dict d WHERE d.dictType = '001' AND d.dictItemCode = c.customerIndustry ) AS customerIndustoryDict,
-	c.customerPhone,
-	c.customerAddress,
-	c.customerDate
-FROM
-	customer c
+    <delete id="deleteCustomer">
+        delete from customer where customerId in
+        <foreach collection="array" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="addCustomer">
+        insert into customer values(null,#{customerName},#{customerUserId},#{customerCreateId},
+        #{customerSourse}, #{customerIndustory}, #{customerPhone}, #{customerAddress}, #{customerDate})
+    </insert>
+
+    <select id="getAll" resultType="customer">
+		SELECT
+		c.customerId,
+		c.customerName,
+		c.customerUserId,
+		(SELECT u.realname from user u where u.uid=c.customerUserId) as customerUserName,
+		c.customerCreateId,
+		c.customerSourse,
+		(SELECT d.dictItemName FROM dict d WHERE d.dictType = '002' AND d.dictItemCode = c.customerSourse ) AS customerSourseDict,
+		c.customerIndustry,
+		(SELECT d.dictItemName FROM dict d WHERE d.dictType = '001' AND d.dictItemCode = c.customerIndustry ) AS customerIndustoryDict,
+		c.customerPhone,
+		c.customerAddress,
+		c.customerDate
+		FROM
+		customer c
 </select>
+
+    <!--条件分页查询-->
+    <select id="findForSearch" resultType="Customer">
+        SELECT
+        c.customerId,
+        c.customerName,
+        c.customerUserId,
+        (SELECT u.realname from user u where u.uid=c.customerUserId) as customerUserName,
+        c.customerCreateId,
+        c.customerSourse,
+        (SELECT d.dictItemName FROM dict d WHERE d.dictType = '002' AND d.dictItemCode = c.customerSourse ) AS
+        customerSourseDict,
+        c.customerIndustry,
+        (SELECT d.dictItemName FROM dict d WHERE d.dictType = '001' AND d.dictItemCode = c.customerIndustry ) AS
+        customerIndustoryDict,
+        c.customerPhone,
+        c.customerAddress,
+        c.customerDate
+        FROM
+        customer c
+        where 1=1
+        <if test="map.customerId!=null and map.customerId!=''">
+            and customerId=#{map.customerId}
+        </if>
+        <if test="map.customerName!=null and map.customerName!=''">
+            and customerName like concat('%',#{map.customerName},'%')
+        </if>
+        <if test="map.customerSourse!=null and map.customerSourse!=''">
+            and customerSourse=#{map.customerSourse}
+        </if>
+        <if test="map.customerDateBegin!=null and map.customerDateBegin!=''">
+            and customerDate>=#{map.customerDateBegin}
+        </if>
+        <if test="map.customerDateEnd!=null and map.customerDateEnd!=''">
+            <!--   <![CDATA[   ]]>  当有不想被解析的符号时就用这个-->
+            <![CDATA[and customerDate<= #{map.customerDateEnd}]]>
+        </if>
+            order by customerDate desc
+            limit #{page},#{rows}
+    </select>
+
+<!--总条数-->
+    <select id="findForCount" resultType="java.lang.Integer">
+        select count(*) from customer
+        where 1=1
+        <if test="map.customerId!=null and map.customerId!=''">
+            and customerId=#{map.customerId}
+        </if>
+        <if test="map.customerName!=null and map.customerName!=''">
+            and customerName like concat('%',#{map.customerName},'%')
+        </if>
+        <if test="map.customerSourse!=null and map.customerSourse!=''">
+            and customerSourse=#{map.customerSourse}
+        </if>
+        <if test="map.customerDateBegin!=null and map.customerDateBegin!=''">
+            and customerDate>=#{map.customerDateBegin}
+        </if>
+        <if test="map.customerDateEnd!=null and map.customerDateEnd!=''">
+            <!--   <![CDATA[   ]]>  当有不想被解析的符号时就用这个-->
+            <![CDATA[and customerDate<= #{map.customerDateEnd}]]>
+        </if>
+    </select>
+    <select id="findOne" resultType="com.swjd.bean.Customer">
+        select * from customer where customerId=#{customerId}
+    </select>
 
 </mapper>

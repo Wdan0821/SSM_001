@@ -6,4 +6,7 @@
     <select id="findUserByUNamePwd" resultType="User">
         select * from user where uname=#{uname} and password=#{password};
     </select>
+    <select id="findUserId" resultType="java.lang.Integer">
+        select uid from user where uname=#{userName}
+    </select>
 </mapper>

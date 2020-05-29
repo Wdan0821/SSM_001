@@ -31,7 +31,7 @@ public class UserController {
             if (u.getFlag().equals("1")){
                 //登录成功把用户名存到session
                 session.setAttribute("activeName",u.getUname());
-                return "redirect:/customerController/toMain";
+                return "redirect:/customerController/findForSearch";
             }else {
                 //账号被禁用了
                 model.addAttribute("errorMsg","该账号被禁用,请联系管理员");
